@@ -1,13 +1,14 @@
 package com.huangwei.myapp;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import com.huangwei.core.activities.ProxyActivity;
+import com.huangwei.core.delegates.MyAppDelegate;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends ProxyActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    public MyAppDelegate setRootDelegate() {
+        return new ExampleDelegete();
     }
+
+
 }

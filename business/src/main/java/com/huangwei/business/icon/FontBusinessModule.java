@@ -17,6 +17,6 @@ public class FontBusinessModule implements IconFontDescriptor {
 
     @Override
     public Icon[] characters() {
-        return BusinessIcons.values();
+        return CustomIcons.values();
     }
 }

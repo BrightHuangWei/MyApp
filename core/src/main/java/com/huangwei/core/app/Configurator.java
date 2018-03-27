@@ -20,18 +20,17 @@ public final class Configurator {
         APP_CONFIGS.put(ConfigKeys.CONFIG_READY.name(),false);
     }
 
+    public static Configurator getInstance(){
+        return Holder.INSTANCE;
+    }
+
     final HashMap<String,Object> getAppConfigs(){
         return APP_CONFIGS;
     }
 
     private static class Holder{
-       private static final Configurator INSTANCE = new Configurator();
+        private static final Configurator INSTANCE = new Configurator();
     }
-
-    public static Configurator getInstance(){
-        return Holder.INSTANCE;
-    }
-
 
     public final void configure(){
         initIcons();
@@ -46,7 +45,7 @@ public final class Configurator {
     private void initIcons(){
         if (ICONS.size()>0){
             final Iconify.IconifyInitializer initializer = Iconify.with(ICONS.get(0));
-            for(int i=1;i<ICONS.size();i++){
+            for(int i = 1; i < ICONS.size(); i++){
                 initializer.with(ICONS.get(i));
             }
         }
@@ -57,18 +56,27 @@ public final class Configurator {
         return this;
     }
 
-
-
-    private void checkConfigrations(){
+    private void checkConfiguration() {
         final boolean isReady = (boolean) APP_CONFIGS.get(ConfigKeys.CONFIG_READY.name());
-        if(!isReady){
-            throw new RuntimeException("Configuration is no ready,call configure !");
+        if (!isReady) {
+            throw new RuntimeException("Configuration is not ready,call configure");
         }
     }
 
     @SuppressWarnings("unchecked")
-    final <T> T getConfigration(Enum<ConfigKeys> key){
-        checkConfigrations();
+    final <T> T getConfiguration(Enum<ConfigKeys> key) {
+        checkConfiguration();
+        return (T) APP_CONFIGS.get(key.name());
+    }
+
+
+    @SuppressWarnings("unchecked")
+    final <T> T getConfiguration(Object key) {
+        checkConfiguration();
+        final Object value = APP_CONFIGS.get(key);
+        if (value == null) {
+            throw new NullPointerException(key.toString() + " IS NULL");
+        }
         return (T) APP_CONFIGS.get(key);
     }
 
