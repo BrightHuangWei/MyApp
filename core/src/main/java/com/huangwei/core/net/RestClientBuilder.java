@@ -22,15 +22,15 @@ import okhttp3.RequestBody;
 
 public class RestClientBuilder {
 
-    private String mUrl ;
+    private String mUrl = null;
     private static final Map<String,Object> PARAMS = RestCreator.getParams() ;
-    private IError mIError ;
-    private IFailure mIFailure ;
-    private IRequest mIRequest ;
-    private ISuccess mISuccess ;
-    private RequestBody mBody ;
-    private Context mContext;
-    private LoaderStyle mLoaderStyle;
+    private IError mIError = null;
+    private IFailure mIFailure = null;
+    private IRequest mIRequest = null;
+    private ISuccess mISuccess = null;
+    private RequestBody mBody = null;
+    private Context mContext = null;
+    private LoaderStyle mLoaderStyle = null;
 
     RestClientBuilder(){
 

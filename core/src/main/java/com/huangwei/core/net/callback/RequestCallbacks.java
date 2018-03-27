@@ -69,7 +69,7 @@ public class RequestCallbacks implements Callback<String> {
                 public void run() {
                     MyAppLoader.stopLoading();
                 }
-            },1000);
+            },3000);
         }
 
     }
