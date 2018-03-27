@@ -3,13 +3,13 @@ package com.huangwei.myapp;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
-import android.widget.Toast;
 
 import com.huangwei.core.delegates.MyAppDelegate;
 import com.huangwei.core.net.RestClient;
 import com.huangwei.core.net.callback.IError;
 import com.huangwei.core.net.callback.IRequest;
 import com.huangwei.core.net.callback.ISuccess;
+import com.huangwei.core.ui.LoaderStyle;
 
 /**
  * Created by HuangWei on 2018/3/26.
@@ -31,11 +31,11 @@ public class ExampleDelegete extends MyAppDelegate {
 
         RestClient.builder()
                 .url("http://news.baidu.com")
-                .loader(getContext())
+                .loader(getContext(), LoaderStyle.BallScaleRippleMultipleIndicator)
                 .success(new ISuccess() {
                     @Override
                     public void onSuccess(String response) {
-                        Toast.makeText(getContext(),response,Toast.LENGTH_LONG).show();
+//                        Toast.makeText(getContext(),response,Toast.LENGTH_LONG).show();
                     }
                 })
                 .onRequest(new IRequest() {

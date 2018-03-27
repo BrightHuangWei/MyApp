@@ -27,15 +27,15 @@ public final class LoaderCreator {
         return avLoadingIndicatorView;
     }
 
-    private static Indicator getIndicator(String name){
-        if (name == null || name.isEmpty()){
+    private static Indicator getIndicator(String name) {
+        if (name == null || name.isEmpty()) {
             return null;
         }
         final StringBuilder drawableClassName = new StringBuilder();
-        if (name.contains(".")){
+        if (!name.contains(".")) {
             final String defaultPackageName = AVLoadingIndicatorView.class.getPackage().getName();
             drawableClassName.append(defaultPackageName)
-                    .append(".indicator")
+                    .append(".indicators")
                     .append(".");
         }
         drawableClassName.append(name);
@@ -47,5 +47,6 @@ public final class LoaderCreator {
             return null;
         }
     }
+
 
 }
