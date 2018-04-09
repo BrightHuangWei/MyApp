@@ -10,6 +10,7 @@ public enum ConfigKeys {
     CONFIG_READY,
     ICON,
     LOADER_DELAYED,
+    HANDLER,
     INTERCEPTOR
 
 }

@@ -11,16 +11,17 @@ import java.util.HashMap;
 public class MyApp {
 
     public static Configurator init(Context context){
-        getConfigurations().put(ConfigKeys.APPLICATION_CONTEXT.name(),context.getApplicationContext());
+        Configurator.getInstance().getAppConfigs()
+                .put(ConfigKeys.APPLICATION_CONTEXT,context.getApplicationContext());
         return Configurator.getInstance();
     }
 
-    public static HashMap<String,Object> getConfigurations(){
+    public static HashMap<Object,Object> getConfigurations(){
         return Configurator.getInstance().getAppConfigs();
     }
 
     public static Context getApplicationContext(){
-        return (Context) getConfigurations().get(ConfigKeys.APPLICATION_CONTEXT.name());
+        return (Context) getConfigurations().get(ConfigKeys.APPLICATION_CONTEXT);
     }
 
     public static Configurator getConfigurator() {
@@ -30,5 +31,4 @@ public class MyApp {
     public static <T> T getConfiguration(Object key) {
         return getConfigurator().getConfiguration(key);
     }
-
 }

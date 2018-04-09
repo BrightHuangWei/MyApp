@@ -6,14 +6,17 @@ import com.joanzapata.iconify.Iconify;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import okhttp3.Interceptor;
+
 /**
  * Created by HuangWei on 2018/3/23.
  */
 
 public final class Configurator {
 
-    private static final HashMap<String,Object> APP_CONFIGS = new HashMap<>();
+    private static final HashMap<Object,Object> APP_CONFIGS = new HashMap<>();
     private static final ArrayList<IconFontDescriptor> ICONS = new ArrayList<>();
+    private static final ArrayList<Interceptor> INTERCEPTORS = new ArrayList<>();
 
     private Configurator() {
         //配置App开始，但未完成
@@ -24,7 +27,7 @@ public final class Configurator {
         return Holder.INSTANCE;
     }
 
-    final HashMap<String,Object> getAppConfigs(){
+    final HashMap<Object,Object> getAppConfigs(){
         return APP_CONFIGS;
     }
 
@@ -34,11 +37,16 @@ public final class Configurator {
 
     public final void configure(){
         initIcons();
-        APP_CONFIGS.put(ConfigKeys.CONFIG_READY.name(),true);
+        APP_CONFIGS.put(ConfigKeys.CONFIG_READY,true);
     }
 
     public final Configurator withApiHost(String host){
-        APP_CONFIGS.put(ConfigKeys.API_HOST.name(),host);
+        APP_CONFIGS.put(ConfigKeys.API_HOST,host);
+        return this;
+    }
+
+    public final Configurator withLoaderDelayed(long delayed) {
+        APP_CONFIGS.put(ConfigKeys.LOADER_DELAYED, delayed);
         return this;
     }
 
@@ -56,8 +64,20 @@ public final class Configurator {
         return this;
     }
 
+    public final Configurator withInterceptor(Interceptor interceptor){
+        INTERCEPTORS.add(interceptor);
+        APP_CONFIGS.put(ConfigKeys.INTERCEPTOR,INTERCEPTORS);
+        return this;
+    }
+
+    public final Configurator withInterceptors(ArrayList<Interceptor> interceptors){
+        INTERCEPTORS.addAll(interceptors);
+        APP_CONFIGS.put(ConfigKeys.INTERCEPTOR,INTERCEPTORS);
+        return this;
+    }
+
     private void checkConfiguration() {
-        final boolean isReady = (boolean) APP_CONFIGS.get(ConfigKeys.CONFIG_READY.name());
+        final boolean isReady = (boolean) APP_CONFIGS.get(ConfigKeys.CONFIG_READY);
         if (!isReady) {
             throw new RuntimeException("Configuration is not ready,call configure");
         }
@@ -66,7 +86,7 @@ public final class Configurator {
     @SuppressWarnings("unchecked")
     final <T> T getConfiguration(Enum<ConfigKeys> key) {
         checkConfiguration();
-        return (T) APP_CONFIGS.get(key.name());
+        return (T) APP_CONFIGS.get(key);
     }
 
 

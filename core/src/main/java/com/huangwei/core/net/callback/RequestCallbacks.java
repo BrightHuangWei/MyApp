@@ -2,8 +2,11 @@ package com.huangwei.core.net.callback;
 
 import android.os.Handler;
 
-import com.huangwei.core.ui.LoaderStyle;
-import com.huangwei.core.ui.MyAppLoader;
+import com.huangwei.core.app.ConfigKeys;
+import com.huangwei.core.app.MyApp;
+import com.huangwei.core.net.RestCreator;
+import com.huangwei.core.ui.loader.LoaderStyle;
+import com.huangwei.core.ui.loader.MyAppLoader;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -47,9 +50,7 @@ public class RequestCallbacks implements Callback<String> {
                 ERROR.onError(response.code(),response.message());
             }
         }
-
-        stopLoading();
-
+        onRequestFinish();
     }
 
     @Override
@@ -58,19 +59,21 @@ public class RequestCallbacks implements Callback<String> {
             FAILURE.onFailure();
         if (REQUEST != null)
             REQUEST.onRequestEnd();
-        stopLoading();
+        onRequestFinish();
 
     }
 
-    private void stopLoading(){
-        if (LOADER_STYLE != null){
+
+    private void onRequestFinish() {
+        final long delayed = MyApp.getConfiguration(ConfigKeys.LOADER_DELAYED);
+        if (LOADER_STYLE != null) {
             HANDLER.postDelayed(new Runnable() {
                 @Override
                 public void run() {
+                    RestCreator.getParams().clear();
                     MyAppLoader.stopLoading();
                 }
-            },3000);
+            }, delayed);
         }
-
     }
 }

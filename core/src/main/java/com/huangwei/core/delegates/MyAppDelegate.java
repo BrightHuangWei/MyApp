@@ -6,7 +6,9 @@ package com.huangwei.core.delegates;
 
 public abstract class MyAppDelegate extends PermissionCheckerDelegate {
 
-
-
+    @SuppressWarnings("unchecked")
+    public <T extends MyAppDelegate> T getParentDelegate() {
+        return (T) getParentFragment();
+    }
 
 }

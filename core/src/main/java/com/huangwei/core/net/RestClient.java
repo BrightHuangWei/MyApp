@@ -8,8 +8,8 @@ import com.huangwei.core.net.callback.IRequest;
 import com.huangwei.core.net.callback.ISuccess;
 import com.huangwei.core.net.callback.RequestCallbacks;
 import com.huangwei.core.net.download.DownloadHandler;
-import com.huangwei.core.ui.LoaderStyle;
-import com.huangwei.core.ui.MyAppLoader;
+import com.huangwei.core.ui.loader.LoaderStyle;
+import com.huangwei.core.ui.loader.MyAppLoader;
 
 import java.io.File;
 import java.util.Map;

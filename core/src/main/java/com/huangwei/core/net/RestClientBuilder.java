@@ -2,11 +2,13 @@ package com.huangwei.core.net;
 
 import android.content.Context;
 
+import com.huangwei.core.app.ConfigKeys;
+import com.huangwei.core.app.MyApp;
 import com.huangwei.core.net.callback.IError;
 import com.huangwei.core.net.callback.IFailure;
 import com.huangwei.core.net.callback.IRequest;
 import com.huangwei.core.net.callback.ISuccess;
-import com.huangwei.core.ui.LoaderStyle;
+import com.huangwei.core.ui.loader.LoaderStyle;
 
 import java.io.File;
 import java.util.Map;
@@ -54,6 +56,11 @@ public class RestClientBuilder {
 
     public final RestClientBuilder url(String url){
         this.mUrl = url;
+        return this;
+    }
+
+    public final RestClientBuilder apiUrl(String url){
+        this.mUrl = MyApp.getConfigurations().get(ConfigKeys.API_HOST) + url;
         return this;
     }
 
